@@ -10,11 +10,11 @@
     <v-card-text>
       <p>
         <v-icon>date_range</v-icon>
-        {{ data.deadline_date }}
+        {{ deadline }}
       </p>
       <p>
         <v-icon>alarm</v-icon>
-        {{ data.alert_date }}
+        {{ alert }}
       </p>
     </v-card-text>
 
@@ -30,7 +30,14 @@
 
     <v-slide-y-transition>
       <v-card-text v-show="show">
-        <v-icon>short_text</v-icon>Extra content
+        <div class="extra-content">
+          <p><b>Actor: </b>{{ data.actor }}</p>
+          <p><b>Actor type: </b>{{ data.actor_type }}</p>
+          <p><b>Interest rate: </b>{{ data.interest_rate }}%</p>
+          <p><b>Type: </b>{{ data.type }}</p>
+          <p><b>Last updated: </b>{{ new Date(data.updatedAt).toString() }}</p>
+          <p><b>Created at: </b>{{ new Date(data.createdAt).toString() }}</p>
+        </div>
       </v-card-text>
     </v-slide-y-transition>
   </v-card>
@@ -49,6 +56,14 @@ export default{
     return {
       show: false
     }
+  },
+  computed: {
+    deadline () {
+      return new Date(this.data.deadline_date).toString()
+    },
+    alert () {
+      return new Date(this.data.alert_date).toString()
+    }
   }
 }
 </script>
@@ -59,6 +74,9 @@ export default{
   padding-left: 0;
 }
 p {
+  text-align: left;
+}
+.extra-content {
   text-align: left;
 }
 </style>
