@@ -1,23 +1,16 @@
 <template>
-  <div class="debts">
-    <h1>Debts</h1>
-    This file will list all the debts.
-
-    <div v-for="debt in debts" :key="debt.description">
-      <p>
-        <span>{{ debt.description }}</span>
-      </p>
-    </div>
-  </div>
+  <items :items="debts" :title="title"></items>
 </template>
 
 <script>
 import DebtsService from '@/services/DebtsService'
+import Items from '@/components/Items'
 export default {
   name: 'debts',
   data () {
     return {
-      debts: []
+      debts: [],
+      title: 'Debts'
     }
   },
   mounted () {
@@ -28,6 +21,9 @@ export default {
       const response = await DebtsService.fetchDebts()
       this.debts = response.data
     }
+  },
+  components: {
+    Items: Items
   }
 }
 </script>
