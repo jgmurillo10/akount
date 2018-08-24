@@ -1,10 +1,11 @@
 <template>
-  <v-layout row justify-center >
-    <v-dialog  v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition" >
-      <v-btn slot="activator" :color="color" large class="btn" >
+  
+  <v-layout row wrap fill-width >
+  <v-btn @click="openModal" :color="color" large class="btn" >
         <v-icon dark>add</v-icon>
         <h2>Add {{ bill }} ({{ cash }})</h2>
       </v-btn>
+    <v-dialog  v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition" >
       <v-card>
         <v-toolbar dark :color="color">
           <v-btn icon dark @click.native="dialog = false">
@@ -16,52 +17,56 @@
             <v-btn dark flat @click.native="dialog = false">Save</v-btn>
           </v-toolbar-items>
         </v-toolbar>
-        <v-list three-line subheader>
-          <v-subheader>User Controls</v-subheader>
-          <v-list-tile avatar>
-            <v-list-tile-content>
-              <v-list-tile-title>Content filtering</v-list-tile-title>
-              <v-list-tile-sub-title>Set the content filtering level to restrict apps that can be downloaded</v-list-tile-sub-title>
-            </v-list-tile-content>
-          </v-list-tile>
-          <v-list-tile avatar>
-            <v-list-tile-content>
-              <v-list-tile-title>Password</v-list-tile-title>
-              <v-list-tile-sub-title>Require password for purchase or use password to restrict purchase</v-list-tile-sub-title>
-            </v-list-tile-content>
-          </v-list-tile>
-        </v-list>
-        <v-divider></v-divider>
-        <v-list three-line subheader>
-          <v-subheader>General</v-subheader>
-          <v-list-tile avatar>
-            <v-list-tile-action>
-              <v-checkbox v-model="notifications"></v-checkbox>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>Notifications</v-list-tile-title>
-              <v-list-tile-sub-title>Notify me about updates to apps or games that I downloaded</v-list-tile-sub-title>
-            </v-list-tile-content>
-          </v-list-tile>
-          <v-list-tile avatar>
-            <v-list-tile-action>
-              <v-checkbox v-model="sound"></v-checkbox>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>Sound</v-list-tile-title>
-              <v-list-tile-sub-title>Auto-update apps at any time. Data charges may apply</v-list-tile-sub-title>
-            </v-list-tile-content>
-          </v-list-tile>
-          <v-list-tile avatar>
-            <v-list-tile-action>
-              <v-checkbox v-model="widgets"></v-checkbox>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>Auto-add widgets</v-list-tile-title>
-              <v-list-tile-sub-title>Automatically add home screen widgets</v-list-tile-sub-title>
-            </v-list-tile-content>
-          </v-list-tile>
-        </v-list>
+        <v-card-title>
+          <span class="headline">Here you can create a new {{ bill }}</span>
+        </v-card-title>
+        <v-card-text>
+          <v-container grid-list-md>
+            <v-layout wrap>
+              <v-flex xs12 sm6 md4>
+                <v-text-field label="Legal first name" required></v-text-field>
+              </v-flex>
+              <v-flex xs12 sm6 md4>
+                <v-text-field label="Legal middle name" hint="example of helper text only on focus"></v-text-field>
+              </v-flex>
+              <v-flex xs12 sm6 md4>
+                <v-text-field
+                  label="Legal last name"
+                  hint="example of persistent helper text"
+                  persistent-hint
+                  required
+                ></v-text-field>
+              </v-flex>
+              <v-flex xs12>
+                <v-text-field label="Email" required></v-text-field>
+              </v-flex>
+              <v-flex xs12>
+                <v-text-field label="Password" type="password" required></v-text-field>
+              </v-flex>
+              <v-flex xs12 sm6>
+                <v-select
+                  :items="['0-17', '18-29', '30-54', '54+']"
+                  label="Age"
+                  required
+                ></v-select>
+              </v-flex>
+              <v-flex xs12 sm6>
+                <v-autocomplete
+                  :items="['Skiing', 'Ice hockey', 'Soccer', 'Basketball', 'Hockey', 'Reading', 'Writing', 'Coding', 'Basejump']"
+                  label="Interests"
+                  multiple
+                  chips
+                ></v-autocomplete>
+              </v-flex>
+            </v-layout>
+          </v-container>
+          <small>*indicates required field</small>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" flat @click.native="dialog = false">Close</v-btn>
+          <v-btn color="blue darken-1" flat @click.native="dialog = false">Save</v-btn>
+        </v-card-actions>
       </v-card>
     </v-dialog>
   </v-layout>
@@ -84,6 +89,11 @@ export default {
       widgets: false
     }
   },
+  methods: {
+    openModal () {
+      this.dialog = true
+    }
+  },
   computed: {
     color () {
       return this.bill === 'debt' ? 'error' : 'success'
@@ -98,7 +108,7 @@ export default {
 .btn {
   margin: 0;
   padding: 0;
-  width: 100%;
+  width: 99.5%;
   height: 140px;
 }
 </style>

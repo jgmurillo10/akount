@@ -22,7 +22,7 @@
         </v-card-title>
         <v-divider></v-divider>
         <v-card-text>
-          <div class="money"  id="balance">$193.352.00</div>
+          <div class="text-md-center text-lg-center text-xs-center money"  id="balance">$193.352.00</div>
         </v-card-text>
       </v-card>
     </v-flex>
@@ -142,12 +142,5 @@ export default {
 h2 {
   font-size: 2em;
   text-transform: capitalize;
-}
-
-.btn {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 140px;
 }
 </style>
