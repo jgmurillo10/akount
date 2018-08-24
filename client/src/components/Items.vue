@@ -1,5 +1,5 @@
 <template>
-  <v-container grid-list-md text-xs-center >
+  <v-container grid-list-md  >
     <h1>{{ title }}</h1>
     <v-layout row wrap>
       <v-flex xs12 md6 lg4 v-for="item in items" :key="item.id">

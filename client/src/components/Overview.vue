@@ -1,57 +1,59 @@
 <template>
-<v-container grid-list-md text-xs-center >
+<v-container grid-list-md text-xs-center>
   <p id="date">Today is {{ today }}.</p>
   <v-layout row wrap>
     <v-flex xs12 md6>
       <v-card class="card-single" dark color="white">
-          <v-btn color="error" dark large class="btn">
-            <v-icon dark>add</v-icon>
-            <h2>Add debt (cash-out)</h2>
-          </v-btn>
+          <AddItem :bill="'debt'"></AddItem>
       </v-card>
     </v-flex>
 
     <v-flex xs12 md6>
       <v-card class="card-single" dark color="white">
-          <v-btn color="success" dark large class="btn">
-            <v-icon dark>add</v-icon>
-            <h2>Add income (cash-in)</h2>
-          </v-btn>
+          <AddItem :bill="'income'"></AddItem>
       </v-card>
     </v-flex>
-      <v-flex xs12 md6 >
-        <v-card class="card-double" color="white">
+    <v-flex xs12 md6 >
+      <v-card class="card-double" color="white">
+        <v-card-title primary-title>
+          <div>
+            <div class="headline">General balance</div>
+          </div>
+        </v-card-title>
+        <v-divider></v-divider>
+        <v-card-text>
+          <div class="money"  id="balance">$193.352.00</div>
+        </v-card-text>
+      </v-card>
+    </v-flex>
+    <v-flex xs12 md6>
+      <v-flex xs12>
+        <v-card class="card-single" color="white" :to="'/debts'">
+          <v-card-title primary-title>
+            <div>
+              <div class="headline">Total debt 😭</div>
+            </div>
+          </v-card-title>
+          <v-divider></v-divider>
           <v-card-text class="px-0">
-            <h2>
-              General balance
-            </h2>
-            <span class="money"  id="balance">$193.352.00</span>
+            <div class="money">$23.352.00</div>
           </v-card-text>
         </v-card>
       </v-flex>
-      <v-flex xs12 md6>
-        <v-flex xs12>
-          <v-card class="card-single" color="white" :to="'/debts'">
-            <v-card-text class="px-0">
-              <h2>
-                Total debt 😭
-              </h2>
-              <span class="money"> $23.352.00</span>
-            </v-card-text>
-          </v-card>
-        </v-flex>
 
-        <v-flex xs12>
-          <v-card class="card-single" color="white" :to="'/receivables'">
-            <v-card-text class="px-0">
-              <h2>
-                Total income 🤑
-              </h2>
-              <span class="money">$230.352.00</span>
-            </v-card-text>
-          </v-card>
-        </v-flex>
-
+      <v-flex xs12>
+        <v-card class="card-single" color="white" :to="'/incomes'">
+          <v-card-title primary-title>
+            <div>
+              <div class="headline">Total income 🤑</div>
+            </div>
+          </v-card-title>
+          <v-divider></v-divider>
+          <v-card-text class="px-0">
+            <div class="money">$230.352.00</div>
+          </v-card-text>
+        </v-card>
+      </v-flex>
     </v-flex>
 
     <v-flex xs12 md6>
@@ -77,8 +79,9 @@
 </template>
 
 <script>
-const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+import AddItem from '@/components/AddItem'
 
+const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 export default {
   name: 'Overview',
   data () {
@@ -102,6 +105,9 @@ export default {
       const suffix = lastDigit === 1 ? 'st' : lastDigit === 2 ? 'nd' : lastDigit === 3 ? 'rd' : 'th'
       return `${month} ${day}${suffix}`
     }
+  },
+  components: {
+    AddItem: AddItem
   }
 }
 </script>
@@ -113,25 +119,18 @@ export default {
   padding: 0;
 }
 .card-double {
-  height: 100%;
+  min-height: 100%;
   margin: 0;
   padding: 0;
-}
-
-.btn {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
 }
 
 .money {
-  font-size: 40pt;
+  font-size: 30pt;
   font-weight: 500;
 }
 
 #balance {
-  font-size: 60pt;
+  font-size: 5rem;
   font-weight: 500;
 }
 
@@ -143,5 +142,12 @@ export default {
 h2 {
   font-size: 2em;
   text-transform: capitalize;
+}
+
+.btn {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 140px;
 }
 </style>

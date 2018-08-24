@@ -3,7 +3,7 @@
     <v-card-title primary-title>
       <div>
         <div class="headline">${{ data.value }}</div>
-        <span class="grey--text">{{ data.description }}</span>
+        <div class="grey--text">{{ data.description }}</div>
       </div>
     </v-card-title>
 
@@ -70,8 +70,7 @@ export default{
 
 <style scoped>
 .headline {
-  margin-left: 0;
-  padding-left: 0;
+  text-align: left;
 }
 p {
   text-align: left;
